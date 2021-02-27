@@ -6,7 +6,7 @@
 - cv2: opencv の python インターフェース
 - torch.tensor: pytorch の訓練データに入力する形式
 
-## 画像の高さ・幅・チャネルの順番や、チャネルないの RGB の順番の概要
+## 画像の高さ・幅・チャネルの順番、RGB の順番の概要
 
 - チャネルの順番: opencv のみ BGR, 他は RGB
 - h, w, c の順番:
@@ -39,7 +39,7 @@ import numpy as np
 import cv2
 img = cv2.imread('')
 img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB) # BGR -> RGB
-img = Image.fromarray(img) # 1~255のuint8を要求
+img = Image.fromarray(img) # 数値1~255のuint8を要求
 img.show(img)
 ```
 
