@@ -102,18 +102,15 @@ func main() {
         "b": 200,
         "c": 300
     }
-    // totalというkeyが増える
     m["total"] = m["a"] + m["b"] + m["c"]
 
-    // rangeでイテレート
     var sum int = 0
     for k, v := range m {
         fmt.Println(k, v)
         sum += v
     }
 
-    // mからtotalのkeyをもつ要素を削除
-    // 戻り値は無く、mの状態そのものが更新される
+    // mの状態そのものが更新される
     // キーが無くてもエラーにはならない
     delete(m, "total")
 
@@ -124,12 +121,12 @@ func main() {
 ## 関数について
 
 ```go
-// int型を帰す関数funcはint型として扱える
+// 関数は値である
 
-// 以下はシグニチャ
+// シグニチャ
 // func 関数(arg　type) 戻り値
 
-// 複数の戻り値(戻り値は()で括る)
+// 複数の戻り値(複数の戻り値は()で括る)
 // func 関数(arg1 type1, arg2 type2) (戻り値1, 戻り値2)
 
 // 名前付き戻り値は()で括る
@@ -139,10 +136,11 @@ func insert(a []string, v string, p int) (s []string) {
     // s[p]は一時的に重複するが、置き換えるため問題ない
     s = append(s[:p+1], s[p:len(s)-1]...)
     s[p] = v
-    // 名前付き戻り値を設定しているため、sを暗黙的に返す
+    // 明示的にsを返さなくて良い
     return
 }
-//可変超引数について
+
+//可変長引数について
 func push(a [string, v ...string]) (s []string) {
     // バラバラの引数をまとめてスライスvに格納してから、v...でアンパックしているイメージ
     s = append(a, v...)
@@ -212,7 +210,7 @@ func main() {
 }
 func initial(ar *[]int) {
     for i := 0; i < len(*ar); i++ {
-        // *ar[i]とすると、i番目のスライスの実体・値となってしまう
+        // *ar[i]とすると、i番目のスライスの実体・値のアドレスとなってしまう
         (*ar)[i] = 0
     }
 }
@@ -226,13 +224,17 @@ var mydata {
     Name string
     Data []int
 }
+
 // typeで型として定義できる
-// そもそもtype myint intのように独自の型を定義できる
+type myint int
+
+// 外部から利用可能な型は関数などは必ずコメント
 // Mydata is structure.
 type Mydata struct {
     Name string
     Data []int
 }
+
 func main() {
     taro := MyData{"Taro", []int{1, 2, 3}}
     // 変数の数が多い場合は名前を指定すると良いかもしれない
@@ -242,7 +244,6 @@ func main() {
     }
 }
 // Mydata is structure.は重要らしい
-// 外部から利用可能な型は関数などは必ずコメント?
 
 // 構造体を関数の引数として渡す場合に、普通に構造体を引数として渡すと、構造体のコピーがどんどん作成されてしまう。そのため、ポインタで渡すことが多い
 
