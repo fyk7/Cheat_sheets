@@ -279,3 +279,71 @@ func (md *Mydata) PrintName() {
 ```
 
 ## インターフェースについて
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+// Data is interface.
+type Data interface {
+    Initial(name string, data []int)
+    PrintData()
+}
+
+// Mydata is Struct.
+type Mydata struct {
+    Name string
+    Data []int
+}
+
+func (md *Mydata) Initial(name string, data []int) {
+    md.Name = name
+    md.Data = data
+}
+
+func (md *Mydata) PrintData() {
+    fmt.Println(md.Name, md.Data)
+}
+
+func main() {
+    var ob Mydata = Mydata{}
+    ob.Initial("Taro", []int{1, 2, 3})
+    ob.PrintData()
+}
+
+// MydataはDataのインターフェースを満たしているため、Mydata型はDataとしても扱える
+func main() {
+    // newで初期化 // obに代入する変数の型にあわせて値が扱われる
+    // var ob Data = Mydata{}はできない
+    // Mydataの値をData型変数に代入できないから
+    // var ob Data = Data{}もできない
+    var ob Data = new(Mydata)
+    // obはData型だが、obの値はMydata型
+    ob.Initial("Taro", []int{1, 2, 3})
+    ob.PrintData()
+}
+
+// interfaceで宣言しているメソッド以外のメソッドを定義
+func (md *Mydata) Check() {
+    fmt.Printf("Check! [%s]", md.Name)
+}
+// 問題ない
+func main() {
+    var ob Mydata = Mydata{}
+    ob.Initial("Taro", []int{1, 2, 3})
+    ob.Check()
+}
+// ob.Check undefied error
+func main() {
+    // obはData型でData型にはCheckは無い(obの値はMydata型であるが)
+    var ob Data = new(Mydata)
+    ob.Initial("Taro", []int{1, 2, 3})
+    ob.Check()
+}
+
+
+
+```
