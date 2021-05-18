@@ -344,6 +344,4 @@ func main() {
     ob.Check()
 }
 
-
-
 ```
