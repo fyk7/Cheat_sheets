@@ -17,3 +17,10 @@ $ createuser -P vegeta
 $ createdb dragon_ball_db -O vegeta
 $ psql -U vegeta dragon_ball_db
 ```
+
+## その他
+
+```sh
+# データディレクトリのバージョンと postgresql のバージョンが違う場合
+$ brew postgresql-upgrade-database
+```
