@@ -1,0 +1,51 @@
+Go installation
+brew install go
+echo 'export GOPATH="$HOME/go"' >> ~/.bash_profile
+echo 'export PATH="$PATH:$GOPATH/bin"' >> ~/.bash_profile
+source ~/.bash_profile
+// ※この時点では、$HOME/goディレクトリは作成されていない
+
+go get github.com/gin-gonic/gin
+// のコマンドを叩いた時点で、 $HOME/goディレクトリが作成される
+// (go get github.com/motemen/gore/cmd/gore でも良い)
+
+go env -w GO111MODULE=on  
+
+// その後vscodeでレコメンドされたライブラリを一通りインストールした
+go get -u github.com/go-delve/delve/cmd/dlv
+
+
+mkdir test_proj && cd test_proj
+go mod init test_proj
+
+.vscode/launch.json
+ 
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${fileDirname}",
+            "env": {},
+            "args": []
+        }
+    ]
+}
+
+
+// F5で実行
+
+go mod init
+go build
+go list -m all
+go get
+go mod tidy  // (既存のコードをcloneした際にこのコマンドで依存関係をインストールする)
+
+
+brew install peco
+brew install ghq
