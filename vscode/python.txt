@@ -1,0 +1,9 @@
+### python使用時のインデントをスペース4個分にする
+1. cmd + shift + p
+2. Preferences: Configure language specific settings
+3. 以下のようにsettings.jsonを修正
+{
+    "[python]": {
+        "editor.tabSize": 4
+    }
+}
